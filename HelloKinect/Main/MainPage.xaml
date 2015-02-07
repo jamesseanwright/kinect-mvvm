@@ -3,14 +3,17 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:HelloKinect"
+    xmlns:controls="using:HelloKinect.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Image Name="irOutput" Stretch="UniformToFill" />
+        <controls:ByteImage Name="colourOutput"
+               ByteSource="{Binding ColourData}" />
         
-        <Image Name="colourOutput"
+        <!--<Image Name="colourOutput"
+               Source="{Binding ColourData}"
                Width="480"
                Height="270"
                HorizontalAlignment="Left"
@@ -21,7 +24,7 @@
                 Height="212"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
-                Background="Red" />
+                Background="Red" />-->
         
         <Grid VerticalAlignment="Bottom">
             <Grid.Background>

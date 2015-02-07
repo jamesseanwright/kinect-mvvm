@@ -3,7 +3,10 @@ using HelloKinect.Head;
 using HelloKinect.Sensor;
 using System;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.InteropServices.ComTypes;
+using System.Threading.Tasks;
+using Windows.Storage.Streams;
 
 namespace HelloKinect.Main
 {
@@ -14,12 +17,38 @@ namespace HelloKinect.Main
         public MainViewModel(ISensorService sensorService)
         {
             this.sensorService = sensorService;
-            this.sensorService.NewFrame += NewFrame;
+            this.sensorService.NewColourFrame += UpdateColourOutput;
+            this.sensorService.NewHeadFrame += UpdateHeadOutput;
+            this.sensorService.NewInfraredFrame += UpdateInfraredOutput;
         }
 
-        private void NewFrame(object sender, IFrame e)
+        private void UpdateInfraredOutput(object sender, IFrame e)
         {
-            
+            KinectFrame frame = e as KinectFrame;
+
+            if (frame == null)
+            {
+                return;
+            }
+
+            InfraredData = (byte[])frame.Data;
+        }
+
+        private void UpdateHeadOutput(object sender, IFrame e)
+        {
+            //throw new NotImplementedException();
+        }
+
+        private void UpdateColourOutput(object sender, IFrame e)
+        {
+            KinectFrame frame = e as KinectFrame;
+
+            if (frame == null)
+            {
+                return;
+            }
+
+            ColourData = (byte[]) frame.Data;
         }
 
         HeadViewModel headViewModel;
@@ -36,8 +65,8 @@ namespace HelloKinect.Main
             }
         }
 
-        IStream infraredData;
-        public IStream InfraredData
+        byte[] infraredData;
+        public byte[] InfraredData
         {
             get
             {
@@ -51,12 +80,12 @@ namespace HelloKinect.Main
             }
         }
 
-        IStream colourData;
-        public IStream ColourData
+        byte[] colourData;
+        public byte[] ColourData
         {
             get
             {
-                return this.ColourData;
+                return this.colourData;
             }
 
             set

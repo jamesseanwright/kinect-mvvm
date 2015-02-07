@@ -6,29 +6,47 @@ namespace HelloKinect.Sensor
     public class KinectSensorService : ISensorService
     {
         KinectSensor sensor;
-        Body[] bodies = new Body[6];
+        MultiSourceFrameReader frameReader;
+        
+        public event EventHandler<IFrame> NewColourFrame;
+        public event EventHandler<IFrame> NewInfraredFrame;
+        public event EventHandler<IFrame> NewHeadFrame;
 
-        public event EventHandler<IFrame> NewFrame;
 
         public KinectSensorService()
         {
             sensor = KinectSensor.GetDefault();
-            FrameDescription fd = sensor.ColorFrameSource.FrameDescription;
-
-            FrameDescription irFd = sensor.InfraredFrameSource.FrameDescription;
-            MultiSourceFrameReader msfr = sensor.OpenMultiSourceFrameReader(FrameSourceTypes.Body | FrameSourceTypes.Color | FrameSourceTypes.Infrared);
-            msfr.MultiSourceFrameArrived += FrameArrived;
+            sensor.InfraredFrameSource.OpenReader();
+            frameReader = sensor.OpenMultiSourceFrameReader(FrameSourceTypes.Body | FrameSourceTypes.Color | FrameSourceTypes.Infrared);
+            frameReader.MultiSourceFrameArrived += FrameArrived;
 
             sensor.Open();
         }
 
-        private void RaiseNewFrame(IDisposable frame, object data)
+        private void RaiseColourFrame(byte[] data)
         {
-            if (NewFrame != null)
+            if (NewColourFrame != null)
             {
-                NewFrame(this, new KinectFrame(frame, data));
+                NewColourFrame(this, new KinectFrame(data));
             }
         }
+
+        private void RaiseInfraredFrame(byte[] data)
+        {
+            if (NewInfraredFrame != null)
+            {
+                NewInfraredFrame(this, new KinectFrame(data));
+            }
+        }
+
+        private void RaiseHeadFrame(float[] points)
+        {
+            if (NewHeadFrame != null)
+            {
+                NewHeadFrame(this, new KinectFrame(points));
+            }
+        }
+
 
         private void FrameArrived(MultiSourceFrameReader sender, MultiSourceFrameArrivedEventArgs args)
         {
@@ -40,7 +58,9 @@ namespace HelloKinect.Sensor
                 {
                     if (colourFrame != null)
                     {
-                        RaiseNewFrame(colourFrame, sensor.ColorFrameSource.FrameDescription);
+                        byte[] colourData = new byte[8294400];
+                        colourFrame.CopyConvertedFrameDataToArray(colourData, ColorImageFormat.Bgra);
+                        RaiseColourFrame(colourData);
                         return;
                     }
                 }
@@ -49,6 +69,7 @@ namespace HelloKinect.Sensor
                 {
                     if (bodyFrame != null)
                     {
+                        Body[] bodies = new Body[6];
                         bodyFrame.GetAndRefreshBodyData(bodies);
 
                         if (bodies.Length < 1 || !bodies[0].IsTracked) {
@@ -64,7 +85,9 @@ namespace HelloKinect.Sensor
                             return;
                         }
 
-                        RaiseNewFrame(bodyFrame, sensor.CoordinateMapper.MapCameraPointToDepthSpace(headJoint.Position));
+                        DepthSpacePoint headPosition = sensor.CoordinateMapper.MapCameraPointToDepthSpace(headJoint.Position);
+
+                        RaiseHeadFrame(new float[] { headPosition.X, headPosition.Y });
                         return;
                     }
                 }
@@ -73,7 +96,22 @@ namespace HelloKinect.Sensor
                 {
                     if (irFrame != null)
                     {
-                        RaiseNewFrame(irFrame, sensor.InfraredFrameSource.FrameDescription);
+                        ushort[] irData = new ushort[irFrame.FrameDescription.LengthInPixels];
+                        byte[] irDataConverted = new byte[irFrame.FrameDescription.LengthInPixels * 4];
+
+                        irFrame.CopyFrameDataToArray(irData);
+
+                        for (int i = 0; i < irData.Length; i++)
+                        {
+                            byte intensity = (byte)(irData[i] >> 8);
+
+                            irDataConverted[i * 4] = intensity;
+                            irDataConverted[i * 4 + 1] = intensity;
+                            irDataConverted[i * 4 + 2] = intensity;
+                            irDataConverted[i * 4 + 3] = 255;
+                        }
+
+                        RaiseInfraredFrame(irDataConverted);
                         return;
                     }
                 }

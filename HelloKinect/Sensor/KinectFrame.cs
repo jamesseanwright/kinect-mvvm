@@ -9,13 +9,11 @@ namespace HelloKinect.Sensor
 {
     public class KinectFrame : IFrame
     {
-        public KinectFrame(IDisposable frame, object data)
+        public KinectFrame(object data)
         {
-            Frame = frame;
             Data = data;
         }
 
-        public IDisposable Frame { get; private set; }
         public object Data { get; private set; }
     }
 }
