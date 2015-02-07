@@ -14,6 +14,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Media.Imaging;
 using WindowsPreview.Kinect;
+using Windows.UI.Xaml.Shapes;
+using Windows.UI;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -31,6 +33,9 @@ namespace HelloKinect
         byte[] irDataConverted;
         WriteableBitmap colourBitmap, irBitmap;
 
+        Body[] bodies;
+        MultiSourceFrameReader msfr;
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -45,8 +50,6 @@ namespace HelloKinect
             colourBitmap = new WriteableBitmap(fd.Width, fd.Height);
             colourOutput.Source = colourBitmap;
 
-            colourReader.FrameArrived += ColourFrameArrived;
-
             irReader = sensor.InfraredFrameSource.OpenReader();
             FrameDescription irFd = sensor.InfraredFrameSource.FrameDescription;
             irData = new ushort[irFd.LengthInPixels];
@@ -54,43 +57,56 @@ namespace HelloKinect
             irBitmap = new WriteableBitmap(irFd.Width, irFd.Height);
             irOutput.Source = irBitmap;
 
-            irReader.FrameArrived += IrFrameArrived;
+            bodies = new Body[6];
+            msfr = sensor.OpenMultiSourceFrameReader(FrameSourceTypes.Body | FrameSourceTypes.Color | FrameSourceTypes.Infrared);
+            msfr.MultiSourceFrameArrived += FrameArrived;
 
             sensor.Open();
         }
 
-        private void IrFrameArrived(InfraredFrameReader sender, InfraredFrameArrivedEventArgs args)
+        private void FrameArrived(MultiSourceFrameReader sender, MultiSourceFrameArrivedEventArgs args)
         {
-            using (InfraredFrame irFrame = args.FrameReference.AcquireFrame())
+            using (MultiSourceFrame multiSourceFrame = args.FrameReference.AcquireFrame())
             {
-                if (irFrame != null)
+                if (multiSourceFrame != null)
                 {
-                    irFrame.CopyFrameDataToArray(irData);
-
-                    for (int i = 0; i < irData.Length; i++)
+                    using (ColorFrame colourFrame = multiSourceFrame.ColorFrameReference.AcquireFrame())
                     {
-                        byte intensity = (byte)(irData[i] >> 8);
-
-                        irDataConverted[i * 4] = intensity;
-                        irDataConverted[i * 4 + 1] = intensity;
-                        irDataConverted[i * 4 + 2] = intensity;
-                        irDataConverted[i * 4 + 3] = 255;
+                        if (colourFrame != null)
+                        {
+                            colourFrame.CopyConvertedFrameDataToBuffer(colourBitmap.PixelBuffer, ColorImageFormat.Bgra);
+                            colourBitmap.Invalidate();
+                        }
                     }
 
-                    irDataConverted.CopyTo(irBitmap.PixelBuffer);
-                    irBitmap.Invalidate();
-                }
-            }
-        }
+                    using (BodyFrame bodyFrame = multiSourceFrame.BodyFrameReference.AcquireFrame())
+                    {
+                        if (bodyFrame != null)
+                        {
 
-        void ColourFrameArrived(ColorFrameReader sender, ColorFrameArrivedEventArgs args)
-        {
-            using (ColorFrame colourFrame = args.FrameReference.AcquireFrame())
-            {
-                if (colourFrame != null)
-                {
-                    colourFrame.CopyConvertedFrameDataToBuffer(colourBitmap.PixelBuffer, ColorImageFormat.Bgra);
-                    colourBitmap.Invalidate();
+                        }
+                    }
+
+                    using (InfraredFrame irFrame = multiSourceFrame.InfraredFrameReference.AcquireFrame())
+                    {
+                        if (irFrame != null)
+                        {
+                            irFrame.CopyFrameDataToArray(irData);
+
+                            for (int i = 0; i < irData.Length; i++)
+                            {
+                                byte intensity = (byte)(irData[i] >> 8);
+
+                                irDataConverted[i * 4] = intensity;
+                                irDataConverted[i * 4 + 1] = intensity;
+                                irDataConverted[i * 4 + 2] = intensity;
+                                irDataConverted[i * 4 + 3] = 255;
+                            }
+
+                            irDataConverted.CopyTo(irBitmap.PixelBuffer);
+                            irBitmap.Invalidate();
+                        }
+                    }
                 }
             }
         }
