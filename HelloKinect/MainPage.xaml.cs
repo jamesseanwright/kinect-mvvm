@@ -83,7 +83,25 @@ namespace HelloKinect
                     {
                         if (bodyFrame != null)
                         {
+                            bodyOutput.Children.Clear();
+                            bodyFrame.GetAndRefreshBodyData(bodies);
 
+                            foreach (Body body in bodies)
+                            {
+                                if (body.IsTracked)
+                                {
+                                    Joint headJoint = body.Joints[JointType.Head];
+
+                                    if (headJoint.TrackingState == TrackingState.Tracked)
+                                    {
+                                        DepthSpacePoint dsp = sensor.CoordinateMapper.MapCameraPointToDepthSpace(headJoint.Position);
+                                        Ellipse headCircle = new Ellipse() { Width = 50, Height = 50, Fill = new SolidColorBrush(Colors.Yellow) };
+                                        bodyOutput.Children.Add(headCircle);
+                                        Canvas.SetLeft(headCircle, (dsp.X - 25) / 2);
+                                        Canvas.SetTop(headCircle, (dsp.Y - 25) / 2);
+                                    }
+                                }
+                            }
                         }
                     }
 

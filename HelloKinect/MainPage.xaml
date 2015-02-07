@@ -11,14 +11,17 @@
         <Image Name="irOutput" Stretch="UniformToFill" />
         
         <Image Name="colourOutput"
-               Width="512"
-               Height="424"
+               Width="480"
+               Height="270"
                HorizontalAlignment="Left"
                VerticalAlignment="Top" />
         
         <Canvas Name="bodyOutput"
-                Width="512"
-                Height="424" />
+                Width="256"
+                Height="212"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Background="Red" />
         
         <Grid VerticalAlignment="Bottom">
             <Grid.Background>
