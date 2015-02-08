@@ -32,7 +32,7 @@ namespace HelloKinect.Main
         public MainPage()
         {
             this.InitializeComponent();
-            DataContext = new MainViewModel(new KinectSensorService());
+            DataContext = new MainViewModel(new Kinect());
         }
     }
 }

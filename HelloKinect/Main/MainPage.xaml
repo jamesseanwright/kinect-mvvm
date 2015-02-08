@@ -10,16 +10,20 @@
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <controls:ByteImage Name="colourOutput"
-               ByteSource="{Binding ColourData}" />
-        
-        <!--<Image Name="colourOutput"
-               Source="{Binding ColourData}"
+               ByteSource="{Binding ColourData}" 
+               FrameWidth="1920"
+               FrameHeight="1080" />
+
+        <controls:ByteImage Name="irOutput"
+               ByteSource="{Binding InfraredData}"
                Width="480"
                Height="270"
+               FrameWidth="480"
+               FrameHeight="270"            
                HorizontalAlignment="Left"
                VerticalAlignment="Top" />
         
-        <Canvas Name="bodyOutput"
+        <!--<Canvas Name="bodyOutput"
                 Width="256"
                 Height="212"
                 HorizontalAlignment="Right"

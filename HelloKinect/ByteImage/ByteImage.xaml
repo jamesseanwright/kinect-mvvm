@@ -6,12 +6,8 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:ByteImage">
-                    <Grid Background="Red">
-                        <Image Name="PART_image"
-                               Stretch="UniformToFill"
-                               Width="1366"
-                               Height="768" />
-                    </Grid>
+                    <Image Name="PART_image"
+                           Stretch="UniformToFill" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

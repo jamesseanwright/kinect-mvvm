@@ -12,9 +12,9 @@ namespace HelloKinect.Main
 {
     public class MainViewModel : BaseViewModel
     {
-        ISensorService sensorService;
+        ISensor sensorService;
 
-        public MainViewModel(ISensorService sensorService)
+        public MainViewModel(ISensor sensorService)
         {
             this.sensorService = sensorService;
             this.sensorService.NewColourFrame += UpdateColourOutput;

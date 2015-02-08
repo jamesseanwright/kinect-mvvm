@@ -40,10 +40,42 @@ namespace HelloKinect.ByteImage
             }
         }
 
+        public static DependencyProperty FrameWidthProperty
+            = DependencyProperty.Register("FrameWidth", typeof(int), typeof(ByteImage), new PropertyMetadata(0));
+
+        public int FrameWidth
+        {
+            get
+            {
+                return (int)GetValue(FrameWidthProperty);
+            }
+
+            set
+            {
+                SetValue(FrameWidthProperty, value);
+            }
+        }
+
+        public static DependencyProperty FrameHeightProperty
+            = DependencyProperty.Register("FrameHeight", typeof(int), typeof(ByteImage), new PropertyMetadata(0));
+
+        public int FrameHeight
+        {
+            get
+            {
+                return (int)GetValue(FrameHeightProperty);
+            }
+
+            set
+            {
+                SetValue(FrameHeightProperty, value);
+            }
+        }
+
         protected override void OnApplyTemplate()
         {
             this.image = (Image) GetTemplateChild("PART_image");
-            imageOutput = new WriteableBitmap(1920, 1080);
+            imageOutput = new WriteableBitmap(FrameWidth, FrameHeight);
             this.image.Source = imageOutput;
         }
 

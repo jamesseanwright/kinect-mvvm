@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HelloKinect.Sensor
 {
-    public interface ISensorService
+    public interface ISensor
     {
         event EventHandler<IFrame> NewColourFrame;
         event EventHandler<IFrame> NewInfraredFrame;

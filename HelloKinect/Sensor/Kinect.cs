@@ -3,7 +3,7 @@ using WindowsPreview.Kinect;
 
 namespace HelloKinect.Sensor
 {
-    public class KinectSensorService : ISensorService
+    public class Kinect : ISensor
     {
         KinectSensor sensor;
         MultiSourceFrameReader frameReader;
@@ -13,13 +13,11 @@ namespace HelloKinect.Sensor
         public event EventHandler<IFrame> NewHeadFrame;
 
 
-        public KinectSensorService()
+        public Kinect()
         {
             sensor = KinectSensor.GetDefault();
-            sensor.InfraredFrameSource.OpenReader();
-            frameReader = sensor.OpenMultiSourceFrameReader(FrameSourceTypes.Body | FrameSourceTypes.Color | FrameSourceTypes.Infrared);
+            frameReader = sensor.OpenMultiSourceFrameReader(FrameSourceTypes.Color | FrameSourceTypes.Infrared);
             frameReader.MultiSourceFrameArrived += FrameArrived;
-
             sensor.Open();
         }
 
@@ -61,7 +59,6 @@ namespace HelloKinect.Sensor
                         byte[] colourData = new byte[colourFrame.FrameDescription.Width * colourFrame.FrameDescription.Height * 4];
                         colourFrame.CopyConvertedFrameDataToArray(colourData, ColorImageFormat.Bgra);
                         RaiseColourFrame(colourData);
-                        return;
                     }
                 }
 
@@ -88,7 +85,6 @@ namespace HelloKinect.Sensor
                         DepthSpacePoint headPosition = sensor.CoordinateMapper.MapCameraPointToDepthSpace(headJoint.Position);
 
                         RaiseHeadFrame(new float[] { headPosition.X, headPosition.Y });
-                        return;
                     }
                 }
 
