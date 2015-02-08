@@ -114,7 +114,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ByteImage.cs" />
+    <Compile Include="ByteImage\ByteImage.cs" />
     <Compile Include="Framework\BaseViewModel.cs" />
     <Compile Include="Head\HeadViewModel.cs" />
     <Compile Include="Main\MainPage.xaml.cs">
@@ -145,7 +145,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Controls\ByteImage.xaml">
+    <Page Include="ByteImage\ByteImage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

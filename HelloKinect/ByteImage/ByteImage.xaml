@@ -1,13 +1,17 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:HelloKinect.Controls">
+    xmlns:local="using:HelloKinect.ByteImage">
     <Style TargetType="local:ByteImage">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:ByteImage">
-                    <Image Name="PART_image"
-                           Stretch="UniformToFill" />
+                    <Grid Background="Red">
+                        <Image Name="PART_image"
+                               Stretch="UniformToFill"
+                               Width="1366"
+                               Height="768" />
+                    </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

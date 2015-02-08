@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
@@ -7,9 +8,10 @@ using System.Threading.Tasks;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace HelloKinect.Controls
+namespace HelloKinect.ByteImage
 {
     [TemplatePart(Name = "PART_image", Type = typeof(Image))]
     public class ByteImage : Control
@@ -48,7 +50,7 @@ namespace HelloKinect.Controls
         {
             ByteImage instance = (ByteImage) d;
 
-            if (e.OldValue == e.NewValue || instance.image == null)
+            if (((byte[])e.OldValue).Length > 0 || e.OldValue == e.NewValue || instance.image == null)
             {
                 return;
             }
@@ -58,15 +60,9 @@ namespace HelloKinect.Controls
 
         private async Task CreateSource()
         {
-            using (InMemoryRandomAccessStream stream = new InMemoryRandomAccessStream())
+            using (Stream stream = this.colourBitmap.PixelBuffer.AsStream())
             {
-                using (DataWriter writer = new DataWriter(stream.GetOutputStreamAt(0)))
-                {
-                    writer.WriteBytes(ByteSource);
-                    await writer.StoreAsync();
-                }
-
-                await colourBitmap.SetSourceAsync(stream);
+                await stream.WriteAsync(ByteSource, 0, ByteSource.Length - 1);
             }
         }
     }
