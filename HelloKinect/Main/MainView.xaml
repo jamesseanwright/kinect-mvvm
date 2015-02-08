@@ -15,16 +15,17 @@
                FrameHeight="1080" />
 
         <head:HeadControl X="{Binding HeadViewModel.X}"
-                          Y="{Binding HeadViewModel.Y}" />
+                          Y="{Binding HeadViewModel.Y}"
+                          Z="{Binding HeadViewModel.Z}" />
 
         <byteimage:ByteImage ByteSource="{Binding InfraredData}"
-               Width="480"
-               Height="270"
+               Width="240"
+               Height="185"
                FrameWidth="512"
                FrameHeight="424"            
                HorizontalAlignment="Left"
                VerticalAlignment="Top" />
-        
+
         <Grid VerticalAlignment="Bottom">
             <Grid.Background>
                 <SolidColorBrush Color="Black"

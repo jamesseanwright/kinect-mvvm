@@ -9,8 +9,8 @@ namespace HelloKinect.Head
 {
     public class HeadViewModel : BaseViewModel
     {
-        float x;
-        public float X
+        double x;
+        public double X
         {
             get
             {
@@ -24,8 +24,8 @@ namespace HelloKinect.Head
             }
         }
 
-        float y;
-        public float Y
+        double y;
+        public double Y
         {
             get
             {
@@ -39,8 +39,8 @@ namespace HelloKinect.Head
             }
         }
 
-        float z;
-        public float Z
+        double z;
+        public double Z
         {
             get
             {
@@ -52,6 +52,13 @@ namespace HelloKinect.Head
                 this.z = value;
                 RaisePropertyChanged("Z");
             }
+        }
+
+        public void Update(Tuple<double, double, double> position)
+        {
+            X = position.Item1;
+            Y = position.Item2;
+            Z = position.Item3;
         }
     }
 }

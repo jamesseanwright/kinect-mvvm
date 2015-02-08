@@ -18,12 +18,12 @@ namespace HelloKinect.Head
     [TemplatePart(Name = "PART_headPresenter", Type = typeof (Control))]
     public sealed class HeadControl : Control
     {
-        const float BaseWidth = 200;
-        const float BaseHeight = 200;
-        const float DepthSpaceWidth = 512;
-        const float DepthSpaceHeight = 424;
+        const double BasePresenterWidth = 180;
+        const double BasePresenterHeight = 180;
+        const double DepthSpaceWidth = 512;
+        const double DepthSpaceHeight = 424;
 
-        Shape headPresenter;
+        FrameworkElement headPresenter;
 
         public HeadControl()
         {
@@ -31,13 +31,13 @@ namespace HelloKinect.Head
         }
 
         public static readonly DependencyProperty XProperty
-            = DependencyProperty.Register("X", typeof (float), typeof (HeadControl), new PropertyMetadata(default (float), PositionUpdated));
+            = DependencyProperty.Register("X", typeof(double), typeof(HeadControl), new PropertyMetadata(default(double), PositionUpdated));
 
-        public float X
+        public double X
         {
             get
             {
-                return (float)GetValue(XProperty);
+                return (double)GetValue(XProperty);
             }
 
             set
@@ -47,13 +47,13 @@ namespace HelloKinect.Head
         }
 
         public static readonly DependencyProperty YProperty
-            = DependencyProperty.Register("Y", typeof(float), typeof(HeadControl), new PropertyMetadata(default(float)));
+            = DependencyProperty.Register("Y", typeof(double), typeof(HeadControl), new PropertyMetadata(default(double)));
 
-        public float Y
+        public double Y
         {
             get
             {
-                return (float)GetValue(YProperty);
+                return (double)GetValue(YProperty);
             }
 
             set
@@ -63,13 +63,13 @@ namespace HelloKinect.Head
         }
 
         public static readonly DependencyProperty ZProperty
-            = DependencyProperty.Register("Y", typeof(float), typeof(HeadControl), new PropertyMetadata(default(float)));
+            = DependencyProperty.Register("Z", typeof(double), typeof(HeadControl), new PropertyMetadata(default(double)));
 
-        public float Z
+        public double Z
         {
             get
             {
-                return (float)GetValue(ZProperty);
+                return (double)GetValue(ZProperty);
             }
 
             set
@@ -80,15 +80,15 @@ namespace HelloKinect.Head
 
         protected override void OnApplyTemplate()
         {
-            this.headPresenter = GetTemplateChild("PART_headPresenter") as Shape;
+            this.headPresenter = GetTemplateChild("PART_headPresenter") as FrameworkElement;
 
             if (this.headPresenter == null)
             {
                 return;
             }
 
-            this.headPresenter.Width = BaseWidth;
-            this.headPresenter.Height = BaseHeight;
+            this.headPresenter.Width = BasePresenterWidth;
+            this.headPresenter.Height = BasePresenterHeight;
         }
 
         private void Transform()
@@ -96,6 +96,12 @@ namespace HelloKinect.Head
             if (this.headPresenter == null)
             {
                 return;
+            }
+
+            if (Z > 0)
+            {
+                this.headPresenter.Width = (BasePresenterWidth - (Z * 50)) * 4;
+                this.headPresenter.Height = (BasePresenterHeight - (Z * 50)) * 4;
             }
 
             Rect window = Window.Current.Bounds;

@@ -6,7 +6,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:ByteImage">
-                    <Image Name="PART_image"
+                    <Image x:Name="PART_image"
                            Stretch="UniformToFill" />
                 </ControlTemplate>
             </Setter.Value>

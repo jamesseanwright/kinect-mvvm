@@ -38,7 +38,7 @@ namespace HelloKinect.Sensor
             }
         }
 
-        private void RaiseHeadFrame(List<Tuple<float, float, float>> heads)
+        private void RaiseHeadFrame(List<Tuple<double, double, double>> heads)
         {
             if (NewHeadFrame != null)
             {
@@ -67,7 +67,7 @@ namespace HelloKinect.Sensor
                     if (bodyFrame != null)
                     {
                         Body[] bodies = new Body[6];
-                        List<Tuple<float, float, float>> heads = new List<Tuple<float, float, float>>();
+                        List<Tuple<double, double, double>> heads = new List<Tuple<double, double, double>>();
 
                         bodyFrame.GetAndRefreshBodyData(bodies);
 
@@ -78,7 +78,7 @@ namespace HelloKinect.Sensor
                             if (headJoint.TrackingState == TrackingState.Tracked)
                             {
                                 DepthSpacePoint dsp = sensor.CoordinateMapper.MapCameraPointToDepthSpace(headJoint.Position);
-                                heads.Add(new Tuple<float, float, float>(dsp.X, dsp.Y, headJoint.Position.Z));
+                                heads.Add(new Tuple<double, double, double>(dsp.X, dsp.Y, headJoint.Position.Z));
                             }
                         }
 

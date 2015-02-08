@@ -7,8 +7,68 @@
             <Setter.Value>
                 <ControlTemplate TargetType="local:HeadControl">
                     <Canvas>
-                        <Ellipse x:Name="PART_headPresenter"
-                                 Fill="Yellow" />
+                        <Grid x:Name="PART_headPresenter">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="3*" />
+                                <RowDefinition Height="2*" />
+                                <RowDefinition Height="4*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="4*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+                            
+                            <Ellipse Fill="Yellow"
+                                     Grid.RowSpan="4"
+                                     Grid.ColumnSpan="5" />
+                            
+                            <Ellipse Fill="Black"
+                                     Grid.Row="1"
+                                     Grid.Column="1" />
+
+                            <Ellipse Fill="Black"
+                                     Grid.Row="1"
+                                     Grid.Column="3" />
+                            
+                            <Grid Grid.Row="2"
+                                  Grid.Column="1"
+                                  Grid.ColumnSpan="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="2*" />
+                                    <RowDefinition Height="2*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+
+                                <Ellipse Fill="Black"
+                                     Grid.ColumnSpan="4"
+                                     Grid.RowSpan="4"
+                                     Margin="20"/>
+
+                                <Ellipse Fill="Yellow"
+                                     Grid.Column="1"
+                                     Grid.Row="1"
+                                     Grid.ColumnSpan="2"
+                                     Grid.RowSpan="2" />
+                                
+                                <Rectangle Fill="Yellow"
+                                           Grid.ColumnSpan="4"
+                                           Grid.RowSpan="2"
+                                           />
+                            </Grid>
+                        </Grid>
                     </Canvas>
                 </ControlTemplate>
             </Setter.Value>
