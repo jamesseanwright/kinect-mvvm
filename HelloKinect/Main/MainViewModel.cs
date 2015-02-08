@@ -2,6 +2,8 @@
 using HelloKinect.Head;
 using HelloKinect.Sensor;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.InteropServices.ComTypes;
@@ -29,7 +31,13 @@ namespace HelloKinect.Main
 
         private void UpdateHeadOutput(object sender, IFrame e)
         {
-            //throw new NotImplementedException();
+            List<Tuple<float, float>> heads = (List<Tuple<float, float>>)e.Data;
+
+            if (heads.Count > 0)
+            {
+                HeadViewModel.X = heads[0].Item1;
+                HeadViewModel.Y = heads[0].Item2;
+            }
         }
 
         private void UpdateColourOutput(object sender, IFrame e)
@@ -37,7 +45,7 @@ namespace HelloKinect.Main
             ColourData = (byte[]) e.Data;
         }
 
-        HeadViewModel headViewModel;
+        private HeadViewModel headViewModel;
         public HeadViewModel HeadViewModel
         {
             get

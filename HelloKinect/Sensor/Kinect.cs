@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using WindowsPreview.Kinect;
 
 namespace HelloKinect.Sensor
@@ -16,7 +17,7 @@ namespace HelloKinect.Sensor
         public Kinect()
         {
             sensor = KinectSensor.GetDefault();
-            frameReader = sensor.OpenMultiSourceFrameReader(FrameSourceTypes.Color | FrameSourceTypes.Infrared);
+            frameReader = sensor.OpenMultiSourceFrameReader(FrameSourceTypes.Color | FrameSourceTypes.Infrared | FrameSourceTypes.Body);
             frameReader.MultiSourceFrameArrived += FrameArrived;
             sensor.Open();
         }
@@ -37,11 +38,11 @@ namespace HelloKinect.Sensor
             }
         }
 
-        private void RaiseHeadFrame(float[] points)
+        private void RaiseHeadFrame(List<Tuple<float, float>> heads)
         {
             if (NewHeadFrame != null)
             {
-                NewHeadFrame(this, new KinectFrame(points));
+                NewHeadFrame(this, new KinectFrame(heads));
             }
         }
 
@@ -67,24 +68,23 @@ namespace HelloKinect.Sensor
                     if (bodyFrame != null)
                     {
                         Body[] bodies = new Body[6];
+                        List<Tuple<float, float>> heads = new List<Tuple<float, float>>();
+
                         bodyFrame.GetAndRefreshBodyData(bodies);
 
-                        if (bodies.Length < 1 || !bodies[0].IsTracked) {
-                            return;
-                        }
-
-                        Body body = bodies[0];
-
-                        Joint headJoint = body.Joints[JointType.Head];
-
-                        if (headJoint.TrackingState == TrackingState.NotTracked)
+                        foreach (Body body in bodies)
                         {
-                            return;
+                            Joint headJoint = body.Joints[JointType.Head];
+
+                            if (headJoint.TrackingState == TrackingState.Tracked)
+                            {
+                                DepthSpacePoint headPosition = sensor.CoordinateMapper.MapCameraPointToDepthSpace(headJoint.Position);
+                                heads.Add(new Tuple<float, float>(headPosition.X, headPosition.Y));
+                            }
+
                         }
 
-                        DepthSpacePoint headPosition = sensor.CoordinateMapper.MapCameraPointToDepthSpace(headJoint.Position);
-
-                        RaiseHeadFrame(new float[] { headPosition.X, headPosition.Y });
+                        RaiseHeadFrame(heads);
                     }
                 }
 

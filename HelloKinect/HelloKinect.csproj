@@ -117,8 +117,8 @@
     <Compile Include="ByteImage\ByteImage.cs" />
     <Compile Include="Framework\BaseViewModel.cs" />
     <Compile Include="Head\HeadViewModel.cs" />
-    <Compile Include="Main\MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
+    <Compile Include="Main\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Main\MainViewModel.cs" />
@@ -150,7 +150,7 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
-    <Page Include="Main\MainPage.xaml">
+    <Page Include="Main\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

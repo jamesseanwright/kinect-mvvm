@@ -1,34 +1,34 @@
 ﻿<Page
-    x:Class="HelloKinect.Main.MainPage"
+    x:Class="HelloKinect.Main.MainView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:HelloKinect"
-    xmlns:controls="using:HelloKinect.ByteImage"
+    xmlns:byteimage="using:HelloKinect.ByteImage"
+    xmlns:head="using:HelloKinect.Head"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <controls:ByteImage Name="colourOutput"
-               ByteSource="{Binding ColourData}" 
+        <byteimage:ByteImage ByteSource="{Binding ColourData}" 
                FrameWidth="1920"
                FrameHeight="1080" />
 
-        <controls:ByteImage Name="irOutput"
-               ByteSource="{Binding InfraredData}"
+        <Canvas>
+            <Ellipse Width="200"
+                    Height="200"
+                    Fill="Yellow"
+                    Canvas.Left="{Binding HeadViewModel.X}"
+                    Canvas.Top="{Binding HeadViewModel.Y}" />
+        </Canvas>
+
+        <!--<byteimage:ByteImage ByteSource="{Binding InfraredData}"
                Width="480"
                Height="270"
                FrameWidth="512"
                FrameHeight="424"            
                HorizontalAlignment="Left"
-               VerticalAlignment="Top" />
-        
-        <!--<Canvas Name="bodyOutput"
-                Width="256"
-                Height="212"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Background="Red" />-->
+               VerticalAlignment="Top" />-->
         
         <Grid VerticalAlignment="Bottom">
             <Grid.Background>
