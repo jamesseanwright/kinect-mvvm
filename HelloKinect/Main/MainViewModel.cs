@@ -31,12 +31,13 @@ namespace HelloKinect.Main
 
         private void UpdateHeadOutput(object sender, IFrame e)
         {
-            List<Tuple<float, float>> heads = (List<Tuple<float, float>>)e.Data;
+            List<Tuple<float, float, float>> heads = (List<Tuple<float, float, float>>)e.Data;
 
             if (heads.Count > 0)
             {
                 HeadViewModel.X = heads[0].Item1;
                 HeadViewModel.Y = heads[0].Item2;
+                HeadViewModel.Z = heads[0].Item3;
             }
         }
 

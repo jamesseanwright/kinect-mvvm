@@ -25,7 +25,7 @@ namespace HelloKinect.ByteImage
             DefaultStyleKey = typeof (ByteImage);
         }
 
-        public static DependencyProperty ByteSourceProperty 
+        public static readonly DependencyProperty ByteSourceProperty 
             = DependencyProperty.Register("ByteSource", typeof (byte[]), typeof (ByteImage), new PropertyMetadata(new byte[0], SourceUpdated));
 
         public byte[] ByteSource
@@ -40,7 +40,7 @@ namespace HelloKinect.ByteImage
             }
         }
 
-        public static DependencyProperty FrameWidthProperty
+        public static readonly DependencyProperty FrameWidthProperty
             = DependencyProperty.Register("FrameWidth", typeof(int), typeof(ByteImage), new PropertyMetadata(0));
 
         public int FrameWidth
@@ -56,7 +56,7 @@ namespace HelloKinect.ByteImage
             }
         }
 
-        public static DependencyProperty FrameHeightProperty
+        public static readonly DependencyProperty FrameHeightProperty
             = DependencyProperty.Register("FrameHeight", typeof(int), typeof(ByteImage), new PropertyMetadata(0));
 
         public int FrameHeight

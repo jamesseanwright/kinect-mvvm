@@ -38,5 +38,20 @@ namespace HelloKinect.Head
                 RaisePropertyChanged("Y");
             }
         }
+
+        float z;
+        public float Z
+        {
+            get
+            {
+                return this.z;
+            }
+
+            set
+            {
+                this.z = value;
+                RaisePropertyChanged("Z");
+            }
+        }
     }
 }

@@ -14,21 +14,16 @@
                FrameWidth="1920"
                FrameHeight="1080" />
 
-        <Canvas>
-            <Ellipse Width="200"
-                    Height="200"
-                    Fill="Yellow"
-                    Canvas.Left="{Binding HeadViewModel.X}"
-                    Canvas.Top="{Binding HeadViewModel.Y}" />
-        </Canvas>
+        <head:HeadControl X="{Binding HeadViewModel.X}"
+                          Y="{Binding HeadViewModel.Y}" />
 
-        <!--<byteimage:ByteImage ByteSource="{Binding InfraredData}"
+        <byteimage:ByteImage ByteSource="{Binding InfraredData}"
                Width="480"
                Height="270"
                FrameWidth="512"
                FrameHeight="424"            
                HorizontalAlignment="Left"
-               VerticalAlignment="Top" />-->
+               VerticalAlignment="Top" />
         
         <Grid VerticalAlignment="Bottom">
             <Grid.Background>
