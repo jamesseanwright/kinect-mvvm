@@ -31,7 +31,7 @@ namespace HelloKinect.Main
 
         private void UpdateHeadOutput(object sender, IFrame e)
         {
-            List<Tuple<float, float, float>> heads = (List<Tuple<float, float, float>>)e.Data;
+            List<Tuple<float, float, float>> heads = (List<Tuple<float, float, float>>) e.Data;
 
             if (heads.Count > 0)
             {

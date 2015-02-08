@@ -8,8 +8,6 @@
                 <ControlTemplate TargetType="local:HeadControl">
                     <Canvas>
                         <Ellipse x:Name="PART_headPresenter"
-                                 Canvas.Left="{TemplateBinding X}"
-                                 Canvas.Top="{TemplateBinding Y}"
                                  Fill="Yellow" />
                     </Canvas>
                 </ControlTemplate>

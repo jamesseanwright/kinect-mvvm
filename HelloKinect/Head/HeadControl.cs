@@ -37,7 +37,7 @@ namespace HelloKinect.Head
         {
             get
             {
-                return (float) GetValue(XProperty);
+                return (float)GetValue(XProperty);
             }
 
             set
@@ -47,13 +47,13 @@ namespace HelloKinect.Head
         }
 
         public static readonly DependencyProperty YProperty
-            = DependencyProperty.Register("Y", typeof(float), typeof(HeadControl), new PropertyMetadata(default(float), PositionUpdated));
+            = DependencyProperty.Register("Y", typeof(float), typeof(HeadControl), new PropertyMetadata(default(float)));
 
         public float Y
         {
             get
             {
-                return (float) GetValue(YProperty);
+                return (float)GetValue(YProperty);
             }
 
             set
@@ -63,7 +63,7 @@ namespace HelloKinect.Head
         }
 
         public static readonly DependencyProperty ZProperty
-            = DependencyProperty.Register("Y", typeof(float), typeof(HeadControl), new PropertyMetadata(default(float), PositionUpdated));
+            = DependencyProperty.Register("Y", typeof(float), typeof(HeadControl), new PropertyMetadata(default(float)));
 
         public float Z
         {
@@ -100,7 +100,7 @@ namespace HelloKinect.Head
 
             Rect window = Window.Current.Bounds;
             Canvas.SetLeft(this.headPresenter, (X * (window.Width / DepthSpaceWidth)) - (this.headPresenter.Width / 2));
-            Canvas.SetTop(this.headPresenter, (Y * (window.Height / DepthSpaceHeight)) - this.headPresenter.Height / 2);
+            Canvas.SetTop(this.headPresenter, (Y * (window.Height / DepthSpaceHeight)) - (this.headPresenter.Height / 2));
         }
 
         private static void PositionUpdated(DependencyObject d, DependencyPropertyChangedEventArgs e)
