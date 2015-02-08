@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Graphics.Imaging;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -17,7 +18,7 @@ namespace HelloKinect.ByteImage
     public class ByteImage : Control
     {
         private Image image;
-        private WriteableBitmap colourBitmap;
+        private WriteableBitmap imageOutput;
 
         public ByteImage()
         {
@@ -42,15 +43,15 @@ namespace HelloKinect.ByteImage
         protected override void OnApplyTemplate()
         {
             this.image = (Image) GetTemplateChild("PART_image");
-            colourBitmap = new WriteableBitmap(1920, 1080);
-            this.image.Source = colourBitmap;
+            imageOutput = new WriteableBitmap(1920, 1080);
+            this.image.Source = imageOutput;
         }
 
         private static async void SourceUpdated(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ByteImage instance = (ByteImage) d;
 
-            if (((byte[])e.OldValue).Length > 0 || e.OldValue == e.NewValue || instance.image == null)
+            if (e.OldValue == e.NewValue || instance.image == null)
             {
                 return;
             }
@@ -60,9 +61,11 @@ namespace HelloKinect.ByteImage
 
         private async Task CreateSource()
         {
-            using (Stream stream = this.colourBitmap.PixelBuffer.AsStream())
+            using (Stream stream = this.imageOutput.PixelBuffer.AsStream())
             {
                 await stream.WriteAsync(ByteSource, 0, ByteSource.Length - 1);
+                await stream.FlushAsync();
+                this.imageOutput.Invalidate();
             }
         }
     }

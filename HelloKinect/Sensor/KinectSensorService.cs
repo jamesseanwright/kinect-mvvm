@@ -58,7 +58,7 @@ namespace HelloKinect.Sensor
                 {
                     if (colourFrame != null)
                     {
-                        byte[] colourData = new byte[8294400];
+                        byte[] colourData = new byte[colourFrame.FrameDescription.Width * colourFrame.FrameDescription.Height * 4];
                         colourFrame.CopyConvertedFrameDataToArray(colourData, ColorImageFormat.Bgra);
                         RaiseColourFrame(colourData);
                         return;

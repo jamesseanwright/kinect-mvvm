@@ -24,14 +24,7 @@ namespace HelloKinect.Main
 
         private void UpdateInfraredOutput(object sender, IFrame e)
         {
-            KinectFrame frame = e as KinectFrame;
-
-            if (frame == null)
-            {
-                return;
-            }
-
-            InfraredData = (byte[])frame.Data;
+            InfraredData = (byte[]) e.Data;
         }
 
         private void UpdateHeadOutput(object sender, IFrame e)
@@ -41,14 +34,7 @@ namespace HelloKinect.Main
 
         private void UpdateColourOutput(object sender, IFrame e)
         {
-            KinectFrame frame = e as KinectFrame;
-
-            if (frame == null)
-            {
-                return;
-            }
-
-            ColourData = (byte[]) frame.Data;
+            ColourData = (byte[]) e.Data;
         }
 
         HeadViewModel headViewModel;
