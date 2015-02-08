@@ -18,8 +18,8 @@
                ByteSource="{Binding InfraredData}"
                Width="480"
                Height="270"
-               FrameWidth="480"
-               FrameHeight="270"            
+               FrameWidth="512"
+               FrameHeight="424"            
                HorizontalAlignment="Left"
                VerticalAlignment="Top" />
         

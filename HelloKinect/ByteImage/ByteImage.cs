@@ -96,7 +96,6 @@ namespace HelloKinect.ByteImage
             using (Stream stream = this.imageOutput.PixelBuffer.AsStream())
             {
                 await stream.WriteAsync(ByteSource, 0, ByteSource.Length - 1);
-                await stream.FlushAsync();
                 this.imageOutput.Invalidate();
             }
         }
