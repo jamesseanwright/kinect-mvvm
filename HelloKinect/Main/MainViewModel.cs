@@ -24,14 +24,14 @@ namespace HelloKinect.Main
             this.sensor.NewInfraredFrame += UpdateInfraredOutput;
         }
 
-        private void UpdateInfraredOutput(object sender, IFrame e)
+        private void UpdateInfraredOutput(object sender, FrameEventArgs e)
         {
-            InfraredData = (byte[]) e.Data;
+            InfraredData = (byte[])e.Frame.Data;
         }
 
-        private void UpdateHeadOutput(object sender, IFrame e)
+        private void UpdateHeadOutput(object sender, FrameEventArgs e)
         {
-            List<Tuple<double, double, double>> heads = (List<Tuple<double, double, double>>)e.Data;
+            List<Tuple<double, double, double>> heads = (List<Tuple<double, double, double>>)e.Frame.Data;
 
             if (heads.Count > 0)
             {
@@ -39,9 +39,9 @@ namespace HelloKinect.Main
             }
         }
 
-        private void UpdateColourOutput(object sender, IFrame e)
+        private void UpdateColourOutput(object sender, FrameEventArgs e)
         {
-            ColourData = (byte[]) e.Data;
+            ColourData = (byte[]) e.Frame.Data;
         }
 
         private HeadViewModel headViewModel;

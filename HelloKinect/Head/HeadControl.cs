@@ -18,16 +18,26 @@ namespace HelloKinect.Head
     [TemplatePart(Name = "PART_headPresenter", Type = typeof (Control))]
     public sealed class HeadControl : Control
     {
-        const double BasePresenterWidth = 180;
-        const double BasePresenterHeight = 180;
-        const double DepthSpaceWidth = 512;
-        const double DepthSpaceHeight = 424;
+        const double DepthSpaceWidth = 1920;
+        const double DepthSpaceHeight = 1080;
+
+        Rect bounds = Window.Current.Bounds;
+        double basePresenterWidth;
+        double basePresenterHeight;
 
         FrameworkElement headPresenter;
+
+        private void UpdateBaseHeadSize()
+        {
+            this.bounds = Window.Current.Bounds;
+            this.basePresenterWidth = 180 * bounds.Width / DepthSpaceWidth;
+            this.basePresenterHeight = 180 * bounds.Height / DepthSpaceHeight;
+        }
 
         public HeadControl()
         {
             this.DefaultStyleKey = typeof (HeadControl);
+            UpdateBaseHeadSize();
         }
 
         public static readonly DependencyProperty XProperty
@@ -87,8 +97,8 @@ namespace HelloKinect.Head
                 return;
             }
 
-            this.headPresenter.Width = BasePresenterWidth;
-            this.headPresenter.Height = BasePresenterHeight;
+            this.headPresenter.Width = basePresenterWidth;
+            this.headPresenter.Height = basePresenterHeight;
         }
 
         private void Transform()
@@ -98,14 +108,18 @@ namespace HelloKinect.Head
                 return;
             }
 
+            UpdateBaseHeadSize();
+
             if (Z > 0)
             {
-                this.headPresenter.Width = (BasePresenterWidth - (Z * 50)) * 4;
-                this.headPresenter.Height = (BasePresenterHeight - (Z * 50)) * 4;
+                this.headPresenter.Width = (basePresenterWidth - (Z * 50)) * 4;
+                this.headPresenter.Height = (basePresenterHeight - (Z * 50)) * 4;
             }
 
-            Canvas.SetLeft(this.headPresenter, X - (this.headPresenter.Width / 2));
-            Canvas.SetTop(this.headPresenter, Y - (this.headPresenter.Height / 2));
+            bounds = Window.Current.Bounds;
+
+            Canvas.SetLeft(this.headPresenter, (X * bounds.Width / DepthSpaceWidth) - (this.headPresenter.Width / 2));
+            Canvas.SetTop(this.headPresenter, (Y * bounds.Height / DepthSpaceHeight) - (this.headPresenter.Height / 2));
         }
 
         private static void PositionUpdated(DependencyObject d, DependencyPropertyChangedEventArgs e)

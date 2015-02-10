@@ -9,9 +9,9 @@ namespace HelloKinect.Sensor
         KinectSensor sensor;
         MultiSourceFrameReader frameReader;
         
-        public event EventHandler<IFrame> NewColourFrame;
-        public event EventHandler<IFrame> NewInfraredFrame;
-        public event EventHandler<IFrame> NewHeadFrame;
+        public event EventHandler<FrameEventArgs> NewColourFrame;
+        public event EventHandler<FrameEventArgs> NewInfraredFrame;
+        public event EventHandler<FrameEventArgs> NewHeadFrame;
 
 
         public Kinect()
@@ -26,7 +26,7 @@ namespace HelloKinect.Sensor
         {
             if (NewColourFrame != null)
             {
-                NewColourFrame(this, new KinectFrame(data));
+                NewColourFrame(this, new FrameEventArgs(new KinectFrame(data)));
             }
         }
 
@@ -34,7 +34,7 @@ namespace HelloKinect.Sensor
         {
             if (NewInfraredFrame != null)
             {
-                NewInfraredFrame(this, new KinectFrame(data));
+                NewInfraredFrame(this, new FrameEventArgs(new KinectFrame(data)));
             }
         }
 
@@ -42,7 +42,7 @@ namespace HelloKinect.Sensor
         {
             if (NewHeadFrame != null)
             {
-                NewHeadFrame(this, new KinectFrame(heads));
+                NewHeadFrame(this, new FrameEventArgs(new KinectFrame(heads)));
             }
         }
 

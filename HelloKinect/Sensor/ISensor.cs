@@ -8,8 +8,8 @@ namespace HelloKinect.Sensor
 {
     public interface ISensor
     {
-        event EventHandler<IFrame> NewColourFrame;
-        event EventHandler<IFrame> NewInfraredFrame;
-        event EventHandler<IFrame> NewHeadFrame;
+        event EventHandler<FrameEventArgs> NewColourFrame;
+        event EventHandler<FrameEventArgs> NewInfraredFrame;
+        event EventHandler<FrameEventArgs> NewHeadFrame;
     }
 }
