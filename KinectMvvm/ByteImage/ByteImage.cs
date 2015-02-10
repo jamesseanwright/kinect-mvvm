@@ -12,7 +12,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace HelloKinect.ByteImage
+namespace KinectMvvm.ByteImage
 {
     [TemplatePart(Name = "PART_image", Type = typeof(Image))]
     public class ByteImage : Control

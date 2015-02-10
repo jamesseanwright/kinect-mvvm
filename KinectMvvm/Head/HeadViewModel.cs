@@ -1,11 +1,11 @@
-﻿using HelloKinect.Framework;
+﻿using KinectMvvm.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HelloKinect.Head
+namespace KinectMvvm.Head
 {
     public class HeadViewModel : BaseViewModel
     {

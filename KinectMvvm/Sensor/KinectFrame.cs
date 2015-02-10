@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WindowsPreview.Kinect;
 
-namespace HelloKinect.Sensor
+namespace KinectMvvm.Sensor
 {
     public class KinectFrame : IFrame
     {

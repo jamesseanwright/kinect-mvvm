@@ -16,12 +16,12 @@ using Windows.UI.Xaml.Media.Imaging;
 using WindowsPreview.Kinect;
 using Windows.UI.Xaml.Shapes;
 using Windows.UI;
-using HelloKinect.Sensor;
+using KinectMvvm.Sensor;
 
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace HelloKinect.Main
+namespace KinectMvvm.Main
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.

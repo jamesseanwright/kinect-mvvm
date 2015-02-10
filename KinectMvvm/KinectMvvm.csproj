@@ -7,14 +7,15 @@
     <ProjectGuid>{3CAF8341-B758-4C48-A557-A1CE1F73C0E8}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HelloKinect</RootNamespace>
-    <AssemblyName>HelloKinect</AssemblyName>
+    <RootNamespace>KinectMvvm</RootNamespace>
+    <AssemblyName>KinectMvvm</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformVersion>8.1</TargetPlatformVersion>
     <MinimumVisualStudioVersion>12</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>HelloKinect_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>KinectMvvm_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>E4BF908B6DE33E0CBD128678C3346DCCAD51E7A1</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -133,7 +134,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="HelloKinect_TemporaryKey.pfx" />
+    <None Include="KinectMvvm_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Logo.scale-100.png" />

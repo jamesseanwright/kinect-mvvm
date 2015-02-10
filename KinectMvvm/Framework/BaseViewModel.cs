@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HelloKinect.Framework
+namespace KinectMvvm.Framework
 {
     public class BaseViewModel : INotifyPropertyChanged
     {

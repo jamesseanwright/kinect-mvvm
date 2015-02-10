@@ -1,6 +1,6 @@
-﻿using HelloKinect.Framework;
-using HelloKinect.Head;
-using HelloKinect.Sensor;
+﻿using KinectMvvm.Framework;
+using KinectMvvm.Head;
+using KinectMvvm.Sensor;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,7 +10,7 @@ using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 using Windows.Storage.Streams;
 
-namespace HelloKinect.Main
+namespace KinectMvvm.Main
 {
     public class MainViewModel : BaseViewModel
     {

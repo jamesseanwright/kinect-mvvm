@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:HelloKinect.Head">
+    xmlns:local="using:KinectMvvm.Head">
     <Style TargetType="local:HeadControl">
         <Setter Property="Template">
             <Setter.Value>

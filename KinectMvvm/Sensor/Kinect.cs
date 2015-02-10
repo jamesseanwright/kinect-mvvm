@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using WindowsPreview.Kinect;
 
-namespace HelloKinect.Sensor
+namespace KinectMvvm.Sensor
 {
     public class Kinect : ISensor
     {
