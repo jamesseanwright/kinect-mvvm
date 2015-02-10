@@ -77,8 +77,8 @@ namespace HelloKinect.Sensor
 
                             if (headJoint.TrackingState == TrackingState.Tracked)
                             {
-                                DepthSpacePoint dsp = sensor.CoordinateMapper.MapCameraPointToDepthSpace(headJoint.Position);
-                                heads.Add(new Tuple<double, double, double>(dsp.X, dsp.Y, headJoint.Position.Z));
+                                ColorSpacePoint spacePoint = sensor.CoordinateMapper.MapCameraPointToColorSpace(headJoint.Position);
+                                heads.Add(new Tuple<double, double, double>(spacePoint.X, spacePoint.Y, headJoint.Position.Z));
                             }
                         }
 

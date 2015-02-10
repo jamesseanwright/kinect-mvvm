@@ -14,14 +14,14 @@ namespace HelloKinect.Main
 {
     public class MainViewModel : BaseViewModel
     {
-        ISensor sensorService;
+        ISensor sensor;
 
-        public MainViewModel(ISensor sensorService)
+        public MainViewModel(ISensor sensor)
         {
-            this.sensorService = sensorService;
-            this.sensorService.NewColourFrame += UpdateColourOutput;
-            this.sensorService.NewHeadFrame += UpdateHeadOutput;
-            this.sensorService.NewInfraredFrame += UpdateInfraredOutput;
+            this.sensor = sensor;
+            this.sensor.NewColourFrame += UpdateColourOutput;
+            this.sensor.NewHeadFrame += UpdateHeadOutput;
+            this.sensor.NewInfraredFrame += UpdateInfraredOutput;
         }
 
         private void UpdateInfraredOutput(object sender, IFrame e)
