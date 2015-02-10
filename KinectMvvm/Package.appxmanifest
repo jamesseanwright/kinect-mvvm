@@ -16,7 +16,7 @@
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="KinectMvvm.App">
       <m2:VisualElements DisplayName="Kinect v2 MVVM Example" Square150x150Logo="Assets\Logo.png" Square30x30Logo="Assets\SmallLogo.png" Description="A C# Windows Store app using the Model-View-ViewModel design pattern that consumes data from a Kinect v2 sensor" ForegroundText="light" BackgroundColor="#464646">
-        <m2:SplashScreen Image="Assets\SplashScreen.png" />
+        <m2:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#000000" />
       </m2:VisualElements>
     </Application>
   </Applications>
