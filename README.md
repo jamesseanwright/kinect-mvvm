@@ -1,5 +1,5 @@
-# Hello Kinect
+# Kinect v2 MVVM Example
 
 ![Screenshot](https://pbs.twimg.com/media/B9WwHtmIUAID5cU.jpg:medium)
 
-A Model-View-ViewModel Windows Store app that outputs image data from the Kinect v2 sensor via its SDK. Displays colour frames, infrared frames, and tracks the position of a single user's head.
+A C# Windows Store app using the Model-View-ViewModel design pattern that consumes data from a Kinect v2 sensor. Will replace the events with Reactive Extensions once I get my head around them!
