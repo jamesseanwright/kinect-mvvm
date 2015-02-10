@@ -1,4 +1,4 @@
-# Kinect v2 for Windows MVVM Example
+# Kinect v2 for Windows Model-View-ViewModel Example
 
 ![Screenshot](https://pbs.twimg.com/media/B9WwHtmIUAID5cU.jpg:medium)
 
