@@ -40,22 +40,22 @@
                                   Grid.ColumnSpan="3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="2*" />
-                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="4*" />
+                                    <ColumnDefinition Width="4*" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*" />
-                                    <RowDefinition Height="2*" />
-                                    <RowDefinition Height="2*" />
+                                    <RowDefinition Height="4*" />
+                                    <RowDefinition Height="4*" />
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
 
                                 <Ellipse Fill="Black"
                                      Grid.ColumnSpan="4"
                                      Grid.RowSpan="4"
-                                     Margin="20"/>
+                                     Margin="2"/>
 
                                 <Ellipse Fill="Yellow"
                                      Grid.Column="1"
