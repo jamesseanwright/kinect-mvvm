@@ -116,10 +116,8 @@ namespace KinectMvvm.Head
                 this.headPresenter.Height = (basePresenterHeight - (Z * 50)) * 4;
             }
 
-            this.bounds = Window.Current.Bounds;
-
-            Canvas.SetLeft(this.headPresenter, (X * bounds.Width / DepthSpaceWidth) - (this.headPresenter.Width / 2));
-            Canvas.SetTop(this.headPresenter, (Y * bounds.Height / DepthSpaceHeight) - (this.headPresenter.Height / 2));
+            Canvas.SetLeft(this.headPresenter, (X * this.bounds.Width / DepthSpaceWidth) - (this.headPresenter.Width / 2));
+            Canvas.SetTop(this.headPresenter, (Y * this.bounds.Height / DepthSpaceHeight) - (this.headPresenter.Height / 2));
         }
 
         private static void PositionUpdated(DependencyObject d, DependencyPropertyChangedEventArgs e)
