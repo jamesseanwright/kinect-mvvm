@@ -24,24 +24,22 @@ namespace KinectMvvm.Main
             this.sensor.NewInfraredFrame += UpdateInfraredOutput;
         }
 
-        private void UpdateInfraredOutput(object sender, FrameEventArgs e)
+        private void UpdateInfraredOutput(object sender, ByteFrameEventArgs e)
         {
-            InfraredData = (byte[])e.Frame.Data;
+            InfraredData = e.Frame.Data;
         }
 
-        private void UpdateHeadOutput(object sender, FrameEventArgs e)
+        private void UpdateHeadOutput(object sender, HeadFrameEventArgs e)
         {
-            List<Tuple<double, double, double>> heads = (List<Tuple<double, double, double>>)e.Frame.Data;
-
-            if (heads.Count > 0)
+            if (e.Frame.Heads.Count > 0)
             {
-                HeadViewModel.Update(heads[0]);
+                HeadViewModel.Update(e.Frame.Heads[0]);
             }
         }
 
-        private void UpdateColourOutput(object sender, FrameEventArgs e)
+        private void UpdateColourOutput(object sender, ByteFrameEventArgs e)
         {
-            ColourData = (byte[]) e.Frame.Data;
+            ColourData = e.Frame.Data;
         }
 
         private HeadViewModel headViewModel;

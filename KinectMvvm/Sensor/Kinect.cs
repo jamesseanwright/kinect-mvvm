@@ -9,9 +9,9 @@ namespace KinectMvvm.Sensor
         KinectSensor sensor;
         MultiSourceFrameReader frameReader;
         
-        public event EventHandler<FrameEventArgs> NewColourFrame;
-        public event EventHandler<FrameEventArgs> NewInfraredFrame;
-        public event EventHandler<FrameEventArgs> NewHeadFrame;
+        public event EventHandler<ByteFrameEventArgs> NewColourFrame;
+        public event EventHandler<ByteFrameEventArgs> NewInfraredFrame;
+        public event EventHandler<HeadFrameEventArgs> NewHeadFrame;
 
 
         public Kinect()
@@ -26,7 +26,7 @@ namespace KinectMvvm.Sensor
         {
             if (NewColourFrame != null)
             {
-                NewColourFrame(this, new FrameEventArgs(new KinectFrame(data)));
+                NewColourFrame(this, new ByteFrameEventArgs(new ByteFrame(data)));
             }
         }
 
@@ -34,7 +34,7 @@ namespace KinectMvvm.Sensor
         {
             if (NewInfraredFrame != null)
             {
-                NewInfraredFrame(this, new FrameEventArgs(new KinectFrame(data)));
+                NewInfraredFrame(this, new ByteFrameEventArgs(new ByteFrame(data)));
             }
         }
 
@@ -42,7 +42,7 @@ namespace KinectMvvm.Sensor
         {
             if (NewHeadFrame != null)
             {
-                NewHeadFrame(this, new FrameEventArgs(new KinectFrame(heads)));
+                NewHeadFrame(this, new HeadFrameEventArgs(new HeadFrame(heads)));
             }
         }
 

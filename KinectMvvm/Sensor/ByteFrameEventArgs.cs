@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace KinectMvvm.Sensor
 {
-    public class FrameEventArgs : EventArgs
+    public class ByteFrameEventArgs : EventArgs
     {
-        public FrameEventArgs(IFrame frame)
+        public ByteFrameEventArgs(ByteFrame frame)
         {
             Frame = frame;
         }
 
-        public IFrame Frame { get; private set; }
+        public ByteFrame Frame { get; private set; }
     }
 }

@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WindowsPreview.Kinect;
 
 namespace KinectMvvm.Sensor
 {
-    public class KinectFrame : IFrame
+    public class HeadFrameEventArgs : EventArgs
     {
-        public KinectFrame(object data)
+        public HeadFrameEventArgs(HeadFrame frame)
         {
-            Data = data;
+            Frame = frame;
         }
 
-        public object Data { get; private set; }
+        public HeadFrame Frame { get; private set; }
     }
 }
