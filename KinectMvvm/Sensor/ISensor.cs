@@ -1,11 +1,13 @@
-﻿using System;
+﻿using KinectMvvm.Head;
+using System;
+using System.Collections.Generic;
 
 namespace KinectMvvm.Sensor
 {
     public interface ISensor
     {
-        event EventHandler<ByteFrameEventArgs> NewColourFrame;
-        event EventHandler<ByteFrameEventArgs> NewInfraredFrame;
-        event EventHandler<HeadFrameEventArgs> NewHeadFrame;
+        IObservable<byte[]> OnColourFrame { get; }
+        IObservable<byte[]> OnInfraredFrame { get; }
+        IObservable<List<HeadModel>> OnHeadFrame { get; }
     }
 }

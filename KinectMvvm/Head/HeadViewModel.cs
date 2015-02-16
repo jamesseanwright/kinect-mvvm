@@ -50,11 +50,11 @@ namespace KinectMvvm.Head
             }
         }
 
-        public void Update(Tuple<double, double, double> position)
+        public void Update(HeadModel head)
         {
-            X = position.Item1;
-            Y = position.Item2;
-            Z = position.Item3;
+            X = head.X;
+            Y = head.Y;
+            Z = head.Z;
         }
     }
 }

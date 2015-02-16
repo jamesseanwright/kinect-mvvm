@@ -1,6 +1,8 @@
 ﻿using KinectMvvm.Framework;
 using KinectMvvm.Head;
 using KinectMvvm.Sensor;
+using System.Collections.Generic;
+using System;
 
 namespace KinectMvvm.Main
 {
@@ -11,27 +13,27 @@ namespace KinectMvvm.Main
         public MainViewModel(ISensor sensor)
         {
             this.sensor = sensor;
-            this.sensor.NewColourFrame += UpdateColourOutput;
-            this.sensor.NewHeadFrame += UpdateHeadOutput;
-            this.sensor.NewInfraredFrame += UpdateInfraredOutput;
+            this.sensor.OnColourFrame.Subscribe(UpdateColourOutput);
+            this.sensor.OnHeadFrame.Subscribe(UpdateHeadOutput);
+            this.sensor.OnInfraredFrame.Subscribe(UpdateInfraredOutput);
         }
 
-        private void UpdateInfraredOutput(object sender, ByteFrameEventArgs e)
+        private void UpdateInfraredOutput(byte[] data)
         {
-            InfraredData = e.Frame.Data;
+            InfraredData = data;
         }
 
-        private void UpdateHeadOutput(object sender, HeadFrameEventArgs e)
+        private void UpdateHeadOutput(List<HeadModel> heads)
         {
-            if (e.Frame.Heads.Count > 0)
+            if (heads.Count > 0)
             {
-                HeadViewModel.Update(e.Frame.Heads[0]);
+                HeadViewModel.Update(heads[0]);
             }
         }
 
-        private void UpdateColourOutput(object sender, ByteFrameEventArgs e)
+        private void UpdateColourOutput(byte[] data)
         {
-            ColourData = e.Frame.Data;
+            ColourData = data;
         }
 
         private HeadViewModel headViewModel;

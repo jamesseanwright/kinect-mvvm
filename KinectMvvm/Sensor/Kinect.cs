@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using WindowsPreview.Kinect;
+using KinectMvvm.Head;
 
 namespace KinectMvvm.Sensor
 {
@@ -8,42 +11,35 @@ namespace KinectMvvm.Sensor
     {
         KinectSensor sensor;
         MultiSourceFrameReader frameReader;
-        
-        public event EventHandler<ByteFrameEventArgs> NewColourFrame;
-        public event EventHandler<ByteFrameEventArgs> NewInfraredFrame;
-        public event EventHandler<HeadFrameEventArgs> NewHeadFrame;
+        Subject<byte[]> onColourFrame;
+        Subject<byte[]> onInfraredFrame;
+        Subject<List<HeadModel>> onHeadFrame;
 
+        public IObservable<byte[]> OnColourFrame
+        {
+            get { return this.onColourFrame.AsObservable(); }
+        }
+
+        public IObservable<byte[]> OnInfraredFrame
+        {
+            get { return this.onInfraredFrame.AsObservable(); }
+        }
+
+        public IObservable<List<HeadModel>> OnHeadFrame
+        {
+            get { return this.onHeadFrame.AsObservable(); }
+        }
 
         public Kinect()
         {
-            sensor = KinectSensor.GetDefault();
-            frameReader = sensor.OpenMultiSourceFrameReader(FrameSourceTypes.Color | FrameSourceTypes.Infrared | FrameSourceTypes.Body);
-            frameReader.MultiSourceFrameArrived += FrameArrived;
-            sensor.Open();
-        }
+            this.onColourFrame = new Subject<byte[]>();
+            this.onInfraredFrame = new Subject<byte[]>();
+            this.onHeadFrame = new Subject<List<HeadModel>>();
 
-        private void RaiseColourFrame(byte[] data)
-        {
-            if (NewColourFrame != null)
-            {
-                NewColourFrame(this, new ByteFrameEventArgs(new ByteFrame(data)));
-            }
-        }
-
-        private void RaiseInfraredFrame(byte[] data)
-        {
-            if (NewInfraredFrame != null)
-            {
-                NewInfraredFrame(this, new ByteFrameEventArgs(new ByteFrame(data)));
-            }
-        }
-
-        private void RaiseHeadFrame(List<Tuple<double, double, double>> heads)
-        {
-            if (NewHeadFrame != null)
-            {
-                NewHeadFrame(this, new HeadFrameEventArgs(new HeadFrame(heads)));
-            }
+            this.sensor = KinectSensor.GetDefault();
+            this.frameReader = sensor.OpenMultiSourceFrameReader(FrameSourceTypes.Color | FrameSourceTypes.Infrared | FrameSourceTypes.Body);
+            this.frameReader.MultiSourceFrameArrived += FrameArrived;
+            this.sensor.Open();
         }
 
         private void FrameArrived(MultiSourceFrameReader sender, MultiSourceFrameArrivedEventArgs args)
@@ -58,7 +54,7 @@ namespace KinectMvvm.Sensor
                     {
                         byte[] colourData = new byte[colourFrame.FrameDescription.Width * colourFrame.FrameDescription.Height * 4];
                         colourFrame.CopyConvertedFrameDataToArray(colourData, ColorImageFormat.Bgra);
-                        RaiseColourFrame(colourData);
+                        this.onColourFrame.OnNext(colourData);
                     }
                 }
 
@@ -67,7 +63,7 @@ namespace KinectMvvm.Sensor
                     if (bodyFrame != null)
                     {
                         Body[] bodies = new Body[6];
-                        List<Tuple<double, double, double>> heads = new List<Tuple<double, double, double>>();
+                        List<HeadModel> heads = new List<HeadModel>();
 
                         bodyFrame.GetAndRefreshBodyData(bodies);
 
@@ -78,11 +74,11 @@ namespace KinectMvvm.Sensor
                             if (headJoint.TrackingState == TrackingState.Tracked)
                             {
                                 ColorSpacePoint spacePoint = sensor.CoordinateMapper.MapCameraPointToColorSpace(headJoint.Position);
-                                heads.Add(new Tuple<double, double, double>(spacePoint.X, spacePoint.Y, headJoint.Position.Z));
+                                heads.Add(new HeadModel(spacePoint.X, spacePoint.Y, headJoint.Position.Z));
                             }
                         }
 
-                        RaiseHeadFrame(heads);
+                        this.onHeadFrame.OnNext(heads);
                     }
                 }
 
@@ -105,8 +101,7 @@ namespace KinectMvvm.Sensor
                             irDataConverted[i * 4 + 3] = 255;
                         }
 
-                        RaiseInfraredFrame(irDataConverted);
-                        return;
+                        this.onInfraredFrame.OnNext(irDataConverted);
                     }
                 }
             }
