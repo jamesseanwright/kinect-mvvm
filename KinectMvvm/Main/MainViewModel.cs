@@ -1,14 +1,6 @@
 ﻿using KinectMvvm.Framework;
 using KinectMvvm.Head;
 using KinectMvvm.Sensor;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.IO;
-using System.Runtime.InteropServices.ComTypes;
-using System.Threading.Tasks;
-using Windows.Storage.Streams;
 
 namespace KinectMvvm.Main
 {
