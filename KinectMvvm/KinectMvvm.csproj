@@ -116,7 +116,14 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="ByteImage\ByteImage.cs" />
-    <Compile Include="Framework\BaseViewModel.cs" />
+    <Compile Include="Dispose\DisposeView.xaml.cs">
+      <DependentUpon>DisposeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Framework\ActionCommand.cs" />
+    <Compile Include="Framework\INavigator.cs" />
+    <Compile Include="Framework\Navigator.cs" />
+    <Compile Include="Framework\View.cs" />
+    <Compile Include="Framework\ViewModel.cs" />
     <Compile Include="Head\HeadControl.cs" />
     <Compile Include="Head\HeadViewModel.cs" />
     <Compile Include="Main\MainView.xaml.cs">
@@ -152,6 +159,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Dispose\DisposeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Head\HeadControl.xaml">
       <SubType>Designer</SubType>

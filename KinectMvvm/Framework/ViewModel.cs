@@ -4,10 +4,11 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Navigation;
 
 namespace KinectMvvm.Framework
 {
-    public class BaseViewModel : INotifyPropertyChanged
+    public abstract class ViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -18,5 +19,15 @@ namespace KinectMvvm.Framework
                 PropertyChanged(this, new PropertyChangedEventArgs(propName));
             }
         }
+
+        public virtual void OnNavigatedFrom()
+        {
+
+        }
+
+        public virtual void OnNavigatedTo()
+        {
+
+        }    
     }
 }

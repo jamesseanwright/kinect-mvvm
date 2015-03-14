@@ -3,7 +3,7 @@ using System;
 
 namespace KinectMvvm.Head
 {
-    public class HeadViewModel : BaseViewModel
+    public class HeadViewModel : ViewModel
     {
         double x;
         public double X

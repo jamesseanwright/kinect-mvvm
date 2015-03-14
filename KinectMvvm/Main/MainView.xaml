@@ -1,8 +1,9 @@
-﻿<Page
+﻿<framework:View
     x:Class="KinectMvvm.Main.MainView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:KinectMvvm"
+    xmlns:framework="using:KinectMvvm.Framework"
     xmlns:byteimage="using:KinectMvvm.ByteImage"
     xmlns:head="using:KinectMvvm.Head"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -11,8 +12,8 @@
     
     <Grid Background="Black">
         <byteimage:ByteImage ByteSource="{Binding ColourData}" 
-               FrameWidth="1920"
-               FrameHeight="1080" />
+               FrameWidth="{Binding ColourFrameWidth}"
+               FrameHeight="{Binding ColourFrameHeight}" />
 
         <head:HeadControl X="{Binding HeadViewModel.X}"
                           Y="{Binding HeadViewModel.Y}"
@@ -21,8 +22,8 @@
         <byteimage:ByteImage ByteSource="{Binding InfraredData}"
                Width="240"
                Height="185"
-               FrameWidth="512"
-               FrameHeight="424"            
+               FrameWidth="{Binding ByteFrameWidth}"
+               FrameHeight="{Binding ByteFrameHeight}"            
                HorizontalAlignment="Left"
                VerticalAlignment="Top" />
 
@@ -31,10 +32,21 @@
                 <SolidColorBrush Color="Black"
                                  Opacity="0.6" />
             </Grid.Background>
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
 
             <TextBlock Text="{Binding Greeting}"
                        TextAlignment="Center"
+                       VerticalAlignment="Center"
                        FontSize="56" />
+            
+            <Button Grid.Column="1"
+                    Content="{Binding DisposeText}"
+                    Command="{Binding Navigate}"
+                    FontSize="56" />
         </Grid>
     </Grid>
-</Page>
+</framework:View>
