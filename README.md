@@ -1,4 +1,4 @@
-# Kinect v2 for Windows using Model-View-ViewModel and Reactive Extensions
+# Kinect v2 for Windows example app using Model-View-ViewModel and Reactive Extensions
 
 ![Screenshot](https://pbs.twimg.com/media/B9WwHtmIUAID5cU.jpg:medium)
 
