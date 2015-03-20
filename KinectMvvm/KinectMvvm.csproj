@@ -119,7 +119,9 @@
     <Compile Include="Dispose\DisposeView.xaml.cs">
       <DependentUpon>DisposeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dispose\DisposeViewModel.cs" />
     <Compile Include="Framework\ActionCommand.cs" />
+    <Compile Include="Framework\DependencyInjector.cs" />
     <Compile Include="Framework\INavigator.cs" />
     <Compile Include="Framework\Navigator.cs" />
     <Compile Include="Framework\View.cs" />
