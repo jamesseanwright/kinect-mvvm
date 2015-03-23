@@ -26,7 +26,7 @@ namespace KinectMvvm.Dispose
                 {
                     this.goBack = new ActionCommand(() =>
                     {
-                        this.navigator.Navigate(typeof(MainView));
+                        this.navigator.Navigate(typeof(MainViewModel));
                     });
                 }
 

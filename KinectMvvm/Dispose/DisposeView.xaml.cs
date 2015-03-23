@@ -10,7 +10,7 @@ namespace KinectMvvm.Dispose
         public DisposeView()
         {
             InitializeComponent();
-            DataContext = new DisposeViewModel(new Navigator());
+            DataContext = DependencyInjector.Instance.CreateInstance<DisposeViewModel>(typeof (INavigator));
         }
     }
 }

@@ -8,15 +8,17 @@ namespace KinectMvvm.Framework
     public class Navigator : INavigator
     {
         readonly Frame rootFrame;
+        IViewResolver viewResolver;
 
-        public Navigator()
+        public Navigator(IViewResolver viewResolver)
         {
+            this.viewResolver = viewResolver;
             this.rootFrame = (Frame)Window.Current.Content;
         }
 
-        public void Navigate(Type viewType)
+        public void Navigate(Type viewModel)
         {
-            this.rootFrame.Navigate(viewType);
+            this.rootFrame.Navigate(viewResolver.GetFromViewModel(viewModel));
         }
     }
 }

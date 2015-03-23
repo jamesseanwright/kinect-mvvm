@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
+﻿using KinectMvvm.Dispose;
+using KinectMvvm.Framework;
+using KinectMvvm.Main;
+using KinectMvvm.Sensor;
+using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
@@ -32,6 +26,21 @@ namespace KinectMvvm
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+        }
+
+        private void RegisterDependencies()
+        {
+            DependencyInjector di = DependencyInjector.Instance;
+
+            // Singleton services
+            di.CreateSingleton<IViewResolver, ViewResolver>();
+            di.CreateSingleton<INavigator, Navigator>(typeof (IViewResolver));
+            di.CreateSingleton<ISensor, Kinect>();
+
+            //View resolver setup
+            IViewResolver vr = di.GetSingleton<IViewResolver>();
+            vr.Register<MainViewModel, MainView>();
+            vr.Register<DisposeViewModel, DisposeView>();
         }
 
         /// <summary>
@@ -70,6 +79,8 @@ namespace KinectMvvm
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
             }
+
+            RegisterDependencies();
 
             if (rootFrame.Content == null)
             {

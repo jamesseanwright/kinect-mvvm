@@ -55,7 +55,7 @@ namespace KinectMvvm.Main
                 {
                     this.navigate = new ActionCommand(() =>
                     {
-                        this.navigator.Navigate(typeof (DisposeView));
+                        this.navigator.Navigate(typeof (DisposeViewModel));
                     });
                 }
 

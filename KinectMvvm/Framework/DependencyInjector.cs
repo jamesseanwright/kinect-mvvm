@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace KinectMvvm.Framework
 {
@@ -7,9 +9,17 @@ namespace KinectMvvm.Framework
     {
         static DependencyInjector instance;
 
-        public static void Initialise()
+        static DependencyInjector()
         {
             instance = new DependencyInjector();
+        }
+
+        public static DependencyInjector Instance
+        {
+            get
+            {
+                return instance;
+            }
         }
 
         Dictionary<Type, object> singletons;
@@ -19,21 +29,36 @@ namespace KinectMvvm.Framework
             this.singletons = new Dictionary<Type, object>();
         }
 
-        public void RegisterSingleton<T>(object instance)
+        public void CreateSingleton<TSource, TTarget>(params Type[] dependencies)
         {
-            this.singletons.Add(typeof (T), instance);
+            this.singletons.Add(typeof(TSource), CreateInstance<TTarget>(dependencies));
         }
 
-        public T GetSingleton<T>()
+        public TSource GetSingleton<TSource>()
         {
             object outRef = null;
-            
-            if (this.singletons.TryGetValue(typeof (T), out outRef))
+
+            if (this.singletons.TryGetValue(typeof(TSource), out outRef))
             {
-                return (T)outRef;
+                return (TSource)outRef;
             }
 
-            return default(T);
+            return default(TSource);
+        }
+
+        public T CreateInstance<T>(params Type[] dependencies)
+        {
+            TypeInfo typeInfo = typeof(T).GetTypeInfo();
+
+            ConstructorInfo constructor = typeInfo.DeclaredConstructors.FirstOrDefault(c =>
+            {
+                return c.GetParameters().Count(p => dependencies.Contains(p.ParameterType)) == dependencies.Length;
+            });
+
+            return (T)constructor.Invoke(dependencies.Select(d =>
+            {
+                return this.singletons.FirstOrDefault(kvp => kvp.Key == d).Value;
+            }).ToArray<object>());
         }
     }
 }

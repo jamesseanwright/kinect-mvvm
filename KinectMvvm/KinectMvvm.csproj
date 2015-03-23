@@ -123,9 +123,11 @@
     <Compile Include="Framework\ActionCommand.cs" />
     <Compile Include="Framework\DependencyInjector.cs" />
     <Compile Include="Framework\INavigator.cs" />
+    <Compile Include="Framework\IViewResolver.cs" />
     <Compile Include="Framework\Navigator.cs" />
     <Compile Include="Framework\View.cs" />
     <Compile Include="Framework\ViewModel.cs" />
+    <Compile Include="Framework\ViewResolver.cs" />
     <Compile Include="Head\HeadControl.cs" />
     <Compile Include="Head\HeadViewModel.cs" />
     <Compile Include="Main\MainView.xaml.cs">

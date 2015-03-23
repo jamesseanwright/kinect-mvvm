@@ -9,7 +9,7 @@ namespace KinectMvvm.Main
         public MainView()
         {
             InitializeComponent();
-            DataContext = new MainViewModel(new Kinect(), new Navigator());
+            DataContext = DependencyInjector.Instance.CreateInstance<MainViewModel>(typeof(ISensor), typeof(INavigator));
         }
     }
 }

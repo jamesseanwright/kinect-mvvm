@@ -5,6 +5,6 @@ namespace KinectMvvm.Framework
 {
     public interface INavigator
     {
-        void Navigate(Type viewType);
+        void Navigate(Type viewModel);
     }
 }
