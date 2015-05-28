@@ -88,7 +88,7 @@ namespace KinectMvvm.Main
             set
             {
                 this.infraredData = value;
-                RaisePropertyChanged("InfraredData");
+                RaisePropertyChanged();
             }
         }
 
@@ -103,7 +103,7 @@ namespace KinectMvvm.Main
             set
             {
                 this.colourData = value;
-                RaisePropertyChanged("ColourData");
+                RaisePropertyChanged();
             }
         }
 

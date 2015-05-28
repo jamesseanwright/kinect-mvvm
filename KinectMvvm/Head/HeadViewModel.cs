@@ -16,7 +16,7 @@ namespace KinectMvvm.Head
             set
             {
                 this.x = value;
-                RaisePropertyChanged("X");
+                RaisePropertyChanged();
             }
         }
 
@@ -31,7 +31,7 @@ namespace KinectMvvm.Head
             set
             {
                 this.y = value;
-                RaisePropertyChanged("Y");
+                RaisePropertyChanged();
             }
         }
 
@@ -46,7 +46,7 @@ namespace KinectMvvm.Head
             set
             {
                 this.z = value;
-                RaisePropertyChanged("Z");
+                RaisePropertyChanged();
             }
         }
 
