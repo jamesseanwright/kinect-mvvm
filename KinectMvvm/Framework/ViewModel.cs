@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml.Navigation;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace KinectMvvm.Framework
 {
@@ -12,7 +7,7 @@ namespace KinectMvvm.Framework
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void RaisePropertyChanged(string propName)
+        protected void RaisePropertyChanged([CallerMemberName] string propName = null)
         {
             if (PropertyChanged != null)
             {
@@ -22,12 +17,10 @@ namespace KinectMvvm.Framework
 
         public virtual void OnNavigatedFrom()
         {
-
         }
 
         public virtual void OnNavigatedTo()
         {
-
-        }    
+        }
     }
 }
